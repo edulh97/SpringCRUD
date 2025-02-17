@@ -53,25 +53,65 @@ Kibo es una aplicación de gestión de usuarios, productos y pedidos. Se ha desa
 
 ## Creación de la Base de Datos
 ```sql
+DROP DATABASE IF EXISTS kibo;
+
 CREATE DATABASE kibo;
+
 USE kibo;
 
-CREATE TABLE usuarios (
-    id_usuario BIGINT NOT NULL AUTO_INCREMENT,
-    nombre_completo VARCHAR(255),
-    correo_electronico VARCHAR(255),
-    direccion VARCHAR(255) NOT NULL,
-    contrasena VARCHAR(255),
-    tarjeta BIGINT,
-    tipo_usuario TINYTEXT,
-    PRIMARY KEY (id_usuario)
+CREATE TABLE `usuarios` (
+    `id_usuario` bigint NOT NULL AUTO_INCREMENT,
+    `nombre_completo` varchar(255) DEFAULT NULL,
+    `correo_electronico` varchar(255) DEFAULT NULL UNIQUE,
+    `direccion` varchar(255) NOT NULL,
+    `contrasena` varchar(255) DEFAULT NULL,
+    `tarjeta` bigint DEFAULT NULL,
+    `tipo_usuario` tinytext,
+    `token` VARCHAR(255) DEFAULT NULL UNIQUE,
+    CONSTRAINT `usuarios_pk` PRIMARY KEY (`id_usuario`)
 );
 
-CREATE TABLE telefonos_usuarios (
-    id_usuario BIGINT NOT NULL,
-    telefono VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id_usuario, telefono),
-    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE ON UPDATE CASCADE
+CREATE TABLE `telefonos_usuarios` (
+    `id_telefono` BIGINT NOT NULL AUTO_INCREMENT,
+    `id_usuario` BIGINT NOT NULL,
+    `telefono` VARCHAR(255) NOT NULL,
+    CONSTRAINT `telefonos_usuarios_pk` PRIMARY KEY (`id_telefono`),
+    CONSTRAINT `telefonos_usuarios_uq` UNIQUE (`id_usuario`, `telefono`),
+    CONSTRAINT `telefonos_usuarios_fk1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE `productos` (
+    `id_producto` bigint NOT NULL AUTO_INCREMENT,
+    `nombre_producto` varchar(100) NOT NULL,
+    `precio` decimal(10, 2) NOT NULL,
+    `descripcion` varchar(100) NOT NULL,
+    `alergenos` varchar(100) NOT NULL,
+    CONSTRAINT `productos_pk` PRIMARY KEY (`id_producto`)
+);
+
+CREATE TABLE `pedidos` (
+    `id_pedido` BIGINT NOT NULL AUTO_INCREMENT,
+    `id_usuario` BIGINT NOT NULL,
+    `fecha_pedido` datetime DEFAULT CURRENT_TIMESTAMP,
+    `estado_pedido` varchar(255) DEFAULT NULL,
+    `tipo_entrega` varchar(255) NOT NULL,
+    `total` decimal(10, 2) DEFAULT NULL,
+    CONSTRAINT `pedidos_pk` PRIMARY KEY (`id_pedido`),
+    CONSTRAINT `pedidos_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE `detalles_pedido` (
+    `id_detalle` BIGINT NOT NULL AUTO_INCREMENT,
+    `id_pedido` BIGINT NOT NULL,
+    `id_producto` BIGINT NOT NULL,
+    `cantidad` INT NOT NULL,
+    `precio_unitario` DECIMAL(10, 2) NOT NULL,
+    `subtotal` DECIMAL(10, 2) GENERATED ALWAYS AS (
+        `cantidad` * `precio_unitario`
+    ) STORED,
+    CONSTRAINT `detalles_pedido_pk` PRIMARY KEY (`id_detalle`),
+    CONSTRAINT `detalles_pedido_fk1` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `detalles_pedido_fk2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 ```
 
