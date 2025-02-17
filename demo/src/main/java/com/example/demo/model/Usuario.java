@@ -1,6 +1,11 @@
 package com.example.demo.model;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import jakarta.persistence.*;
 
@@ -33,9 +38,16 @@ public class Usuario {
     @Column(name = "token")
     private String token;
 
-    @OneToMany(mappedBy = "usuario", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "usuario", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
     private List<TelefonosUsuario> telefonos;
 
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // Assuming you have a list of roles or authorities in your Usuario class
+        List<String> roles = List.of("ROLE_USER"); // Replace with actual roles from your Usuario class
+        return roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
 
     public Usuario() {
     }
@@ -47,9 +59,6 @@ public class Usuario {
     public void setId(Long id) {
         this.id = id;
     }
-
-
-
 
     public String getNombreCompleto() {
         return nombreCompleto;
@@ -114,7 +123,5 @@ public class Usuario {
     public void setToken(String token) {
         this.token = token;
     }
-
-    
 
 }

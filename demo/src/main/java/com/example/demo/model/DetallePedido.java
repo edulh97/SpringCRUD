@@ -13,9 +13,6 @@ public class DetallePedido {
     @Column(name = "id_detalle", nullable = false)
     private Long id;
 
-    @Column(name = "id_pedido", nullable = false)
-    private Long idPedido;
-
     @Column(name = "id_producto", nullable = false)
     private Long idProducto;
 
@@ -25,12 +22,12 @@ public class DetallePedido {
     @Column(name = "precio_unitario", nullable = false, precision = 10, scale = 2)
     private BigDecimal precioUnitario;
 
-    @Column(name = "subtotal", nullable = false, precision = 10, scale = 2)
+    @Column(name = "subtotal", nullable = false, precision = 10, scale = 2, insertable = false, updatable = false)
     private BigDecimal subtotal;
 
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "id_pedido", insertable = false, updatable = false)
+    @JoinColumn(name = "id_pedido", nullable = false)
     private Pedido pedido;
 
     // Constructor vacío (obligatorio para JPA)
@@ -46,13 +43,13 @@ public class DetallePedido {
         this.id = id;
     }
 
-    public Long getIdPedido() {
-        return idPedido;
-    }
+    // public Long getIdPedido() {
+    //     return idPedido;
+    // }
 
-    public void setIdPedido(Long idPedido) {
-        this.idPedido = idPedido;
-    }
+    // public void setIdPedido(Long idPedido) {
+    //     this.idPedido = idPedido;
+    // }
 
     public Long getIdProducto() {
         return idProducto;

@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Table(name = "pedidos")
 public class Pedido {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pedido", nullable = false)
@@ -33,7 +34,7 @@ public class Pedido {
     @Column(name = "total", precision = 10, scale = 2)
     private BigDecimal total;
 
-    @JsonManagedReference 
+    @JsonManagedReference
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<DetallePedido> detalles;
 
