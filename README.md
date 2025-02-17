@@ -1,17 +1,4 @@
 
-Conversación abierta. 1 mensaje leído.
-
-Ir al contenido
-Uso de Correo de I.E.S. El Rincón con lectores de pantalla
-
-2 de 288
-readme
-Recibidos
-
-YEREMAY ARANA
-18:11 (hace 10 minutos)
-para mí
-
 # Kibo - Documentación del Proyecto
 
 ## Índice
