@@ -43,13 +43,19 @@ Kibo es una aplicación de gestión de usuarios, productos y pedidos. Se ha desa
 ## Estructura del Proyecto
 1. **Diagramas**
    - Entidad-Relación
+  ![image](https://github.com/user-attachments/assets/15fe08d6-9a04-4494-8dbf-86ec65a69da7)
+
    - UML
+![image](https://github.com/user-attachments/assets/bb4ea6f4-fc36-44da-883e-1d2c0942a760)
+
    - Casos de Uso
-2. **API**
+![image](https://github.com/user-attachments/assets/432a8387-9127-4146-a05d-2b4d9076fb3d)
+
+1. **API**
    - Endpoints y funcionalidades
-3. **Modelos y Repositorios**
+2. **Modelos y Repositorios**
    - Implementación en Spring Boot
-4. **Interfaz IONIC**
+3. **Interfaz IONIC**
    - Gestión y visualización de datos
 
 ## Base de Datos
