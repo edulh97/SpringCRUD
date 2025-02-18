@@ -2,10 +2,11 @@ package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "telefonos_usuarios")
-//Se puede utilizar IdClass o Embedded
+// Se puede utilizar IdClass o Embedded
 @IdClass(TelefonosUsuarioId.class)
 public class TelefonosUsuario {
 
@@ -14,6 +15,7 @@ public class TelefonosUsuario {
     private Long idUsuario;
 
     @Id
+    @Size(min = 9, max = 9, message = "Introduzca un numero de 9 numeros")
     private String telefono;
 
     @ManyToOne
@@ -21,7 +23,8 @@ public class TelefonosUsuario {
     @JsonIgnore
     private Usuario usuario;
 
-    public TelefonosUsuario() {}
+    public TelefonosUsuario() {
+    }
 
     public Long getIdUsuario() {
         return idUsuario;

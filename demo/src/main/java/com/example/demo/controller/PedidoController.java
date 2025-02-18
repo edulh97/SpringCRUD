@@ -9,6 +9,8 @@ import com.example.demo.ResourceNotFoundException;
 import com.example.demo.model.Pedido;
 import com.example.demo.repository.PedidoRepository;
 
+import jakarta.validation.Valid;
+
 @CrossOrigin(origins = "*") // Permite solicitudes desde Ionic
 @RestController
 @RequestMapping("/kibo/pedidos")
@@ -32,13 +34,13 @@ public class PedidoController {
 
     // Crear un nuevo pedido
     @PostMapping
-    public Pedido crearPedido(@RequestBody Pedido newPedido) {
+    public Pedido crearPedido(@Valid @RequestBody Pedido newPedido) {
         return pedidoRepository.save(newPedido);
     }
 
     // Actualizar un pedido existente
     @PutMapping("/{id}")
-    public Pedido actualizarPedido(@PathVariable("id") Long id, @RequestBody Pedido detallesPedido) {
+    public Pedido actualizarPedido(@Valid @PathVariable("id") Long id, @RequestBody Pedido detallesPedido) {
         Pedido updatePedido = pedidoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Pedido no encontrado"));
 

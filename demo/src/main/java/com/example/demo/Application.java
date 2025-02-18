@@ -33,21 +33,20 @@ public class Application {
     public class SecurityConfig {
 
         @Bean
-        public SecurityFilterChain securityFilterChain(HttpSecurity http, JWTAuthorizationFilter jwtAuthorizationFilter) throws Exception {
+        public SecurityFilterChain securityFilterChain(HttpSecurity http, JWTAuthorizationFilter jwtAuthorizationFilter)
+                throws Exception {
             http
-                .csrf(csrf -> csrf.disable()) // Deshabilita CSRF (necesario para APIs REST)
-                .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/Login-Screen").permitAll() // Permite acceso público a /Login-Screen
-                    .anyRequest().authenticated() // Requiere autenticación para TODAS las demás rutas
-                )
-                .httpBasic(Customizer.withDefaults()) // Habilita autenticación básica
-                .addFilterAfter(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class) // Filtro JWT
-                .sessionManagement(session -> session
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // Sin estado (sin sesiones)
-        
+                    .csrf(csrf -> csrf.disable())
+                    .authorizeHttpRequests(auth -> auth
+                    .requestMatchers("/Login-Screen").permitAll()
+                    .anyRequest().authenticated())
+                    .httpBasic(Customizer.withDefaults())
+                    .addFilterAfter(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
+                    .sessionManagement(session -> session
+                            .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
             return http.build();
         }
-        
 
         @Bean
         public UserDetailsService userDetailsService(UsuariosRepository usuariosRepository) {

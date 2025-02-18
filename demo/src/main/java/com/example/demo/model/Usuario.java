@@ -1,13 +1,8 @@
 package com.example.demo.model;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "usuarios")
@@ -18,15 +13,24 @@ public class Usuario {
     private Long id;
 
     @Column(name = "nombre_completo")
+    @Size(min = 2, max = 33, message = "Introduzca un nombre de mas de 2 caracteres")
+    @NotBlank(message = "El nombre es obligatorio")
     private String nombreCompleto;
 
     @Column(name = "correo_electronico")
+    @NotBlank(message = "El correo es obligatorio")
+    @Email(message = "El correo electrónico debe ser válido, por ejemplo: usuario@dominio.com")
+    // @Pattern(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", message = "El correo electrónico debe ser válido")
     private String correoElectronico;
 
+    @NotBlank(message = "introduce una direccion por dios que no somos adivinos")
+    @Size(min = 5, max = 50, message = "La dirección debe tener entre 5 y 50 caracteres")
     @Column(name = "direccion")
     private String direccion;
 
     @Column(name = "contrasena")
+    @NotBlank(message = "La contraseña es obligatoria")
+    @Size(min = 3, max = 12, message = "La contraseña debe tener entre 3 y 12 caracteres")
     private String contrasena;
 
     @Column(name = "tarjeta")
@@ -40,14 +44,6 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
     private List<TelefonosUsuario> telefonos;
-
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Assuming you have a list of roles or authorities in your Usuario class
-        List<String> roles = List.of("ROLE_USER"); // Replace with actual roles from your Usuario class
-        return roles.stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
-    }
 
     public Usuario() {
     }

@@ -19,9 +19,8 @@ public class JwtTokenUtil {
 
         return Jwts.builder()
                 .setSubject(correoElectronico)
-                .claim("authorities", tipoUsuario)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 3600000)) // 1 hora de validez
+                .setExpiration(new Date(System.currentTimeMillis() + 3600000))
                 .signWith(key)
                 .compact();
     }

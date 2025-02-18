@@ -10,6 +10,7 @@ import com.example.demo.ResourceNotFoundException;
 import com.example.demo.model.Usuario;
 import com.example.demo.repository.UsuariosRepository;
 
+import jakarta.validation.Valid;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -19,7 +20,7 @@ public class UsuariosController {
     @Autowired
     private UsuariosRepository usuariosRepository;
 
-    @Value("${jwt.secret}") // Inyectar la clave desde application.properties
+    @Value("${jwt.secret}")
     private String SECRET;
 
     @GetMapping
@@ -34,12 +35,14 @@ public class UsuariosController {
     }
 
     @PostMapping
-    public Usuario crearUsuario(@RequestBody Usuario newUsuario) {
+    public Usuario crearUsuario(@Valid @RequestBody Usuario newUsuario) {
         return usuariosRepository.save(newUsuario);
     }
 
     @PutMapping("/{id}")
-    public Usuario actualizarUsuario(@PathVariable("id") Long id, @RequestBody Usuario detallesUsuario) {
+    public Usuario actualizarUsuario(
+            @PathVariable("id") Long id,
+            @Valid @RequestBody Usuario detallesUsuario) {
         Usuario updateUsuario = usuariosRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
         updateUsuario.setNombreCompleto(detallesUsuario.getNombreCompleto());
