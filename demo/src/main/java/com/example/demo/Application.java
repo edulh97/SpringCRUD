@@ -66,7 +66,8 @@ public class Application {
 
         @Bean
         public PasswordEncoder passwordEncoder() {
-            return new BCryptPasswordEncoder(); // Usa BCrypt para codificar contraseñas
+            // Usa BCrypt para codificar contraseña
+            return new BCryptPasswordEncoder(); 
         }
 
         @Bean
