@@ -1,5 +1,6 @@
 package com.example.demo;
 
+<<<<<<< HEAD
 import com.example.demo.model.Usuario;
 import com.example.demo.repository.UsuariosRepository;
 import com.example.demo.security.JWTAuthorizationFilter;
@@ -75,4 +76,16 @@ public class Application {
             return new JWTAuthorizationFilter(jwtSecret);
         }
     }
+=======
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class Application {
+	
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+
+>>>>>>> 390eb3efa0dfe9b46e968d3b38e609e8270c5087
 }

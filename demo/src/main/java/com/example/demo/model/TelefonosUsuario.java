@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -32,6 +33,37 @@ public class TelefonosUsuario {
 
     public void setIdUsuario(Long idUsuario) {
         this.idUsuario = idUsuario;
+=======
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "telefonos_usuarios")
+public class TelefonosUsuario {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_telefono")
+    private Long idTelefono;
+
+    @ManyToOne
+    @JoinColumn(name = "id_usuario", nullable = false)
+    @JsonBackReference
+    private Usuario usuario;
+
+    @Column(name = "telefono", nullable = false)
+    private String telefono;
+
+    public TelefonosUsuario() {}
+
+    public Long getIdTelefono() {
+        return idTelefono;
+    }
+
+    public void setIdTelefono(Long idTelefono) {
+        this.idTelefono = idTelefono;
+>>>>>>> 390eb3efa0dfe9b46e968d3b38e609e8270c5087
     }
 
     public String getTelefono() {

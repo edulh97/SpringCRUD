@@ -1,12 +1,20 @@
 package com.example.demo.model;
 
 import java.util.List;
+<<<<<<< HEAD
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+=======
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.*;
+>>>>>>> 390eb3efa0dfe9b46e968d3b38e609e8270c5087
 
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
+<<<<<<< HEAD
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
@@ -34,6 +42,27 @@ public class Usuario {
     private String contrasena;
 
     @Column(name = "tarjeta")
+=======
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_usuario", nullable = false)
+    private Long id;
+
+    @Column(name = "nombre_completo", nullable = false, length = 255)
+    private String nombreCompleto;
+
+    @Column(name = "correo_electronico", nullable = false, length = 255)
+    private String correoElectronico;
+
+    @Column(name = "direccion", nullable = false)
+    private String direccion;
+
+    @Column(name = "contrasena", nullable = false, length = 255)
+    private String contrasena;
+
+    @Column(name = "tarjeta", nullable = false)
+>>>>>>> 390eb3efa0dfe9b46e968d3b38e609e8270c5087
     private Long tarjeta;
 
     @Column(name = "tipo_usuario")
@@ -42,11 +71,19 @@ public class Usuario {
     @Column(name = "token")
     private String token;
 
+<<<<<<< HEAD
     @OneToMany(mappedBy = "usuario", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
     private List<TelefonosUsuario> telefonos;
 
     public Usuario() {
     }
+=======
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<TelefonosUsuario> telefonos;
+
+    public Usuario() {}
+>>>>>>> 390eb3efa0dfe9b46e968d3b38e609e8270c5087
 
     public Long getId() {
         return id;
@@ -119,5 +156,9 @@ public class Usuario {
     public void setToken(String token) {
         this.token = token;
     }
+<<<<<<< HEAD
 
 }
+=======
+}
+>>>>>>> 390eb3efa0dfe9b46e968d3b38e609e8270c5087
