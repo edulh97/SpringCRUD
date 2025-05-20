@@ -2,7 +2,6 @@ package com.example.demo.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-<<<<<<< HEAD
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,10 +11,6 @@ import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-=======
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
->>>>>>> 390eb3efa0dfe9b46e968d3b38e609e8270c5087
 
 import java.math.BigDecimal;
 
@@ -23,7 +18,6 @@ import java.math.BigDecimal;
 @Table(name = "productos")
 public class Producto {
     @Id
-<<<<<<< HEAD
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_producto", nullable = false)
     private Long id;
@@ -46,20 +40,6 @@ public class Producto {
 
     @NotBlank(message = "Los alérgenos son obligatorios")
     @Size(max = 100, message = "Los alérgenos no pueden exceder los 100 caracteres")
-=======
-    @Column(name = "id_producto", nullable = false)
-    private Long id;
-
-    @Column(name = "nombre_producto", nullable = false, length = 100)
-    private String nombreProducto;
-
-    @Column(name = "precio", nullable = false, precision = 10, scale = 2)
-    private BigDecimal precio;
-
-    @Column(name = "descripcion", nullable = false, length = 100)
-    private String descripcion;
-
->>>>>>> 390eb3efa0dfe9b46e968d3b38e609e8270c5087
     @Column(name = "alergenos", nullable = false, length = 100)
     private String alergenos;
 

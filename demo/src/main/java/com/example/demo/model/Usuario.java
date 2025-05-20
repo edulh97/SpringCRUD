@@ -1,48 +1,14 @@
 package com.example.demo.model;
 
 import java.util.List;
-<<<<<<< HEAD
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-=======
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
->>>>>>> 390eb3efa0dfe9b46e968d3b38e609e8270c5087
 
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
-<<<<<<< HEAD
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario")
-    private Long id;
-
-    @Column(name = "nombre_completo")
-    @Size(min = 2, max = 33, message = "Introduzca un nombre de mas de 2 caracteres")
-    @NotBlank(message = "El nombre es obligatorio")
-    private String nombreCompleto;
-
-    @Column(name = "correo_electronico")
-    @NotBlank(message = "El correo es obligatorio")
-    @Email(message = "El correo electrónico debe ser válido, por ejemplo: usuario@dominio.com")
-    // @Pattern(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", message = "El correo electrónico debe ser válido")
-    private String correoElectronico;
-
-    @NotBlank(message = "introduce una direccion por dios que no somos adivinos")
-    @Size(min = 5, max = 50, message = "La dirección debe tener entre 5 y 50 caracteres")
-    @Column(name = "direccion")
-    private String direccion;
-
-    @Column(name = "contrasena")
-    @NotBlank(message = "La contraseña es obligatoria")
-    @Size(min = 3, max = 12, message = "La contraseña debe tener entre 3 y 12 caracteres")
-    private String contrasena;
-
-    @Column(name = "tarjeta")
-=======
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,7 +28,6 @@ public class Usuario {
     private String contrasena;
 
     @Column(name = "tarjeta", nullable = false)
->>>>>>> 390eb3efa0dfe9b46e968d3b38e609e8270c5087
     private Long tarjeta;
 
     @Column(name = "tipo_usuario")
@@ -71,19 +36,11 @@ public class Usuario {
     @Column(name = "token")
     private String token;
 
-<<<<<<< HEAD
-    @OneToMany(mappedBy = "usuario", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
-    private List<TelefonosUsuario> telefonos;
-
-    public Usuario() {
-    }
-=======
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<TelefonosUsuario> telefonos;
 
     public Usuario() {}
->>>>>>> 390eb3efa0dfe9b46e968d3b38e609e8270c5087
 
     public Long getId() {
         return id;
@@ -156,9 +113,4 @@ public class Usuario {
     public void setToken(String token) {
         this.token = token;
     }
-<<<<<<< HEAD
-
 }
-=======
-}
->>>>>>> 390eb3efa0dfe9b46e968d3b38e609e8270c5087

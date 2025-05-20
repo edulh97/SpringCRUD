@@ -1,6 +1,5 @@
 package com.example.demo;
 
-<<<<<<< HEAD
 import com.example.demo.model.Usuario;
 import com.example.demo.repository.UsuariosRepository;
 import com.example.demo.security.JWTAuthorizationFilter;
@@ -39,8 +38,8 @@ public class Application {
             http
                     .csrf(csrf -> csrf.disable())
                     .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/Login-Screen").permitAll()
-                    .anyRequest().authenticated())
+                            .requestMatchers("/Login-Screen").authenticated() // Solo accesible para autenticados
+                            .anyRequest().permitAll()) // Todas las demás rutas son públicas
                     .httpBasic(Customizer.withDefaults())
                     .addFilterAfter(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
                     .sessionManagement(session -> session
@@ -68,7 +67,7 @@ public class Application {
         @Bean
         public PasswordEncoder passwordEncoder() {
             // Usa BCrypt para codificar contraseña
-            return new BCryptPasswordEncoder(); 
+            return new BCryptPasswordEncoder();
         }
 
         @Bean
@@ -76,16 +75,4 @@ public class Application {
             return new JWTAuthorizationFilter(jwtSecret);
         }
     }
-=======
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-@SpringBootApplication
-public class Application {
-	
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
-
->>>>>>> 390eb3efa0dfe9b46e968d3b38e609e8270c5087
 }

@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -11,7 +12,10 @@ public class DetallePedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_detalle", nullable = false)
-    private Long id;
+    private Long idDetalle;
+
+    @Column(name = "id_pedido", insertable = false, updatable = false) // Mapea a la columna FK
+    private Long idPedido;
 
     @Column(name = "id_producto", nullable = false)
     private Long idProducto;
@@ -30,26 +34,30 @@ public class DetallePedido {
     @JoinColumn(name = "id_pedido", nullable = false)
     private Pedido pedido;
 
-    // Constructor vacío (obligatorio para JPA)
+    public void calcularSubtotal() {
+        if (this.precioUnitario != null && this.cantidad != null) {
+            this.subtotal = this.precioUnitario.multiply(BigDecimal.valueOf(this.cantidad));
+        }
+    }
+
     public DetallePedido() {
     }
 
-    // Getters y Setters
-    public Long getId() {
-        return id;
+    public Long getIdDetalle() {
+        return idDetalle;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdDetalle(Long idDetalle) {
+        this.idDetalle = idDetalle;
     }
 
-    // public Long getIdPedido() {
-    //     return idPedido;
-    // }
+    public Long getIdPedido() {
+        return idPedido;
+    }
 
-    // public void setIdPedido(Long idPedido) {
-    //     this.idPedido = idPedido;
-    // }
+    public void setIdPedido(Long idPedido) {
+        this.idPedido = idPedido;
+    }
 
     public Long getIdProducto() {
         return idProducto;
@@ -89,5 +97,13 @@ public class DetallePedido {
 
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
+    }
+
+    public List<DetallePedido> findAll() {
+        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+    }
+
+    public Object findById(Long id2) {
+        throw new UnsupportedOperationException("Unimplemented method 'findById'");
     }
 }
