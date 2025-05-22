@@ -7,18 +7,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.ResourceNotFoundException;
+import com.example.demo.model.Categoria;
 import com.example.demo.model.Producto;
+import com.example.demo.repository.CategoriasRepository;
 import com.example.demo.repository.ProductosRepository;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin(origins = "*") // Permite solicitudes desde Ionic
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/kibo/productos")
 public class ProductosController {
 
     @Autowired
     private ProductosRepository productosRepository;
+
+    @Autowired
+    private CategoriasRepository categoriasRepository;
 
     @GetMapping
     public List<Producto> obtenerTodosLosProductos() {
@@ -55,5 +60,32 @@ public class ProductosController {
                 .orElseThrow(() -> new ResourceNotFoundException("no existe"));
         productosRepository.deleteById(id);
         return producto;
+    }
+
+    @PostMapping("/{prodId}/categorias/{catId}")
+    public Producto asignarCategoria(
+            @PathVariable Long prodId,
+            @PathVariable Long catId) {
+        Producto prod = productosRepository.findById(prodId)
+            .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado " + prodId));
+        Categoria cat = categoriasRepository.findById(catId)
+            .orElseThrow(() -> new ResourceNotFoundException("Categoría no encontrada " + catId));
+
+        prod.getCategorias().add(cat);
+        return productosRepository.save(prod);
+    }
+
+    // 2) Quitar una categoría de un producto
+    @DeleteMapping("/{prodId}/categorias/{catId}")
+    public Producto quitarCategoria(
+            @PathVariable Long prodId,
+            @PathVariable Long catId) {
+        Producto prod = productosRepository.findById(prodId)
+                .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado " + prodId));
+        Categoria cat = categoriasRepository.findById(catId)
+                .orElseThrow(() -> new ResourceNotFoundException("Categoría no encontrada " + catId));
+
+        prod.getCategorias().remove(cat);
+        return productosRepository.save(prod);
     }
 }
