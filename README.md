@@ -175,6 +175,13 @@ CREATE TABLE `resenas` (
   CONSTRAINT `resenas_uq` UNIQUE (`id_usuario`, `id_producto`) -- Para evitar múltiples reseñas del mismo usuario
 );
 
+CREATE TABLE `categorias` (
+  `id_categoria` BIGINT       NOT NULL AUTO_INCREMENT,
+  `nombre_categoria` VARCHAR(100) NOT NULL UNIQUE,
+  `descripcion`       VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY (`id_categoria`)
+);
+
 CREATE TABLE `detalles_pedido` (
     `id_detalle` BIGINT NOT NULL AUTO_INCREMENT,
     `id_pedido` BIGINT NOT NULL,
