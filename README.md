@@ -70,7 +70,6 @@ Kibo es una aplicación de gestión de usuarios, productos y pedidos. Se ha desa
 1. **Diagramas**
    - Entidad-Relación
   ![image](https://github.com/user-attachments/assets/849e8eaf-0e44-414d-9fc7-e93143db6195)
-)
 
    - UML
 ![image](https://github.com/user-attachments/assets/bb4ea6f4-fc36-44da-883e-1d2c0942a760)
