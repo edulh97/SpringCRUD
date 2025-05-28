@@ -59,7 +59,6 @@
 			<scope>test</scope>
 		</dependency>
 
-<<<<<<< HEAD
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -94,8 +93,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
-=======
->>>>>>> 390eb3efa0dfe9b46e968d3b38e609e8270c5087
 	</dependencies>
 
 	<build>
