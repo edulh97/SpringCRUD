@@ -146,6 +146,35 @@ CREATE TABLE `pedidos` (
     CONSTRAINT `pedidos_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE `productos_categorias` (
+  `id_producto`  BIGINT NOT NULL,
+  `id_categoria` BIGINT NOT NULL,
+  PRIMARY KEY (`id_producto`, `id_categoria`),
+  CONSTRAINT `fk_prodcat_prod`
+    FOREIGN KEY (`id_producto`)
+    REFERENCES `productos` (`id_producto`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_prodcat_cat`
+    FOREIGN KEY (`id_categoria`)
+    REFERENCES `categorias` (`id_categoria`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+CREATE TABLE `resenas` (
+  `id_resena` BIGINT NOT NULL AUTO_INCREMENT,
+  `id_usuario` BIGINT NOT NULL,
+  `id_producto` BIGINT NOT NULL,
+  `calificacion` TINYINT NOT NULL,
+  `comentario` TEXT DEFAULT NULL,
+  `fecha_creacion` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT `resenas_pk` PRIMARY KEY (`id_resena`),
+  CONSTRAINT `resenas_fk1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE,
+  CONSTRAINT `resenas_fk2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`) ON DELETE CASCADE,
+  CONSTRAINT `resenas_uq` UNIQUE (`id_usuario`, `id_producto`) -- Para evitar múltiples reseñas del mismo usuario
+);
+
 CREATE TABLE `detalles_pedido` (
     `id_detalle` BIGINT NOT NULL AUTO_INCREMENT,
     `id_pedido` BIGINT NOT NULL,
